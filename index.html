@@ -17,7 +17,7 @@
      with (processingInstance) {
         size(600, 400); 
         frameRate(60);
-   var scene = 0;
+  var scene = 0;
 var t = 0;
 var f = -353;
 var a = 30;
@@ -26,8 +26,75 @@ var startPoint = 0;
 var angleVelocity = 0.40;
 var amplitude = a;
 var x1 = width-40;
+var x2 = width/2;
 var color1 = color(0, 0, 0);
-//Adapted code from Advanced JS: Nature Of Code
+var lights1 = color(255, 0, 0);
+var lights2 = color(0, 0, 255);
+var accelerationF = 0.5;
+var light = 0;
+var bicl = 600;
+var bicl2 = 500;
+var bicl3 = 400;
+var bicl4 = 300;
+var bicp = 300;
+var bicp2 = 300;
+var bicp3 = 300;
+var bicp4 = 300;
+var speed = 3;
+var Frict = function() {
+    this.mass = 1;
+    this.position = new PVector(width/2+31/2, height-28);
+};
+  
+Frict.prototype.update = function() {
+this.position.x += 1;
+};
+
+Frict.prototype.display = function() {
+  stroke(0);
+  strokeWeight(2);
+  fill(255, 0, 0);
+  rect(this.position.x+33+26, this.position.y-52, 5, 30, 2);
+  fill(lights1);
+  rect(this.position.x+35-26, this.position.y-63, 26, 12, 1);
+   fill(lights2);
+  rect(this.position.x+35, this.position.y-63, 26, 12, 1);
+  fill(255, 0, 0);
+  rect(this.position.x-77, this.position.y-63, 85, 12, 1);
+  rect(this.position.x-78, this.position.y-31, 86, 29);
+  rect(this.position.x+6, this.position.y-27, 59, 24, 5);
+  fill(0);
+  ellipse(this.position.x-16-45, this.position.y-2, 25, 25);
+  ellipse(this.position.x+33, this.position.y-2, 25, 25);
+  fill(0, 81, 255);
+  rect(this.position.x+33, this.position.y-47, 26, 21);
+  fill(255, 0, 0);
+  noStroke();
+  rect(this.position.x+33-25, this.position.y-47, 25, 23, 3);
+  stroke(0, 0, 0);
+  rect(this.position.x+6, this.position.y-52, 54, 6);
+  rect(this.position.x-77, this.position.y-52, 84, 22);
+  fill(192, 192, 192);
+  rect(this.position.x-69+20, this.position.y-51, 5, 20);
+  rect(this.position.x-69+11+20, this.position.y-51, 5, 20);
+  noStroke();
+  rect(this.position.x-67+20, this.position.y-48, 11, 3);
+  rect(this.position.x-67+20, this.position.y-48+5, 11, 3);
+  rect(this.position.x-67+20, this.position.y-48+10, 11, 3);
+  stroke(0, 0, 0);
+  fill(0);
+  ellipse(this.position.x+25, this.position.y-26, 6, 2);
+};
+Frict.prototype.checkEdges = function() {
+  if (this.position.x > width) {
+    this.position.x = 0;
+  } 
+  if(this.position.x < width-width){
+      this.position.x = 400;
+  }
+};
+var fire = new Frict();
+//Adapted code from some JS tutorials
 draw = function() {
     stroke(0,0,0);
     if(scene === 0){
@@ -102,6 +169,16 @@ draw = function() {
   text("Next Example", 481, 26);
     }
 if(scene === 2){
+    light += 0.030;
+    if(light > 0){
+        lights1 = color(255, 255, 255);
+        lights2 = color(0, 0, 255);
+    } if (light > 0.5){
+        lights2 = color(255, 255, 255);
+        lights1 = color(255, 0, 0);
+    } if(light > 1){
+        light = 0;
+    }
     textSize(17);
     background(65,105,225);
     fill(255, 255, 255);
@@ -111,8 +188,35 @@ if(scene === 2){
   fill(208, 208, 208);
 rect(width-width, height/2+150, width, height-height/2+100);
     textSize(30);
-    fill(255, 255, 255);
-    text('"Surround sound" Doppler effect coming this \nweekend...', 10, 125);
+    fire.display();
+ noFill();
+ ellipse(fire.position.x-10, fire.position.y-30, 100, 100);
+ ellipse(fire.position.x-15, fire.position.y-30, 200, 200);
+ ellipse(bicp, height-33, bicl, 600);
+ ellipse(bicp2, height-33, bicl2, 500);
+ ellipse(bicp3, height-33, bicl3, 400);
+ ellipse(bicp4, height-33, bicl4, 300);
+ fill(0, 0, 0);
+if(fire.position.x >= width/2+30){
+    bicp4 = fire.position.x-40;
+}
+if(fire.position.x >= width/2+60){
+    bicp3 = fire.position.x-80;
+}
+if(fire.position.x >= width/2+90){
+    bicp2 = fire.position.x-120;
+}
+if(fire.position.x >= width/2+120){
+    bicp = fire.position.x-160;
+}
+if(fire.position.x >= width/2+150){
+    speed = 0;
+}
+ textSize(17);
+  fill(255, 255, 0);
+ text("Use the right arrow key to move the fire truck forward.", 10, 28);
+ fill(255, 255, 255);
+  text("Notice how the circles are smaller when you accelerate forward and behind it\nare bigger circles? Well, the smaller circles in the front are actualler higher\nfrequencies, or a louder sound. The waves behind it are lower frequencies \nproducing a lower sound.", 10, 50);
 }
 if(scene > 2){
     scene = 1;
@@ -122,15 +226,28 @@ if(mouseX >= x1 && mouseX <= x1+20 && mouseY >= height-200 && mouseY <= height-2
     x1 -= 50;
 }
 };
+    if(keyPressed === false){
+        speed = 0;
+    } if (keyPressed === true){
+        speed = 3;
+    }
 keyPressed = function(){
-if(keyCode === LEFT){
+if(keyCode === LEFT && scene === 1){
     x1 -= 5;
 }
-if(keyCode === RIGHT){
+if(keyCode === RIGHT && scene === 1){
     x1 += 5;
 } 
+if(keyCode === RIGHT && scene === 2){
+    if(fire.position.x <= width-150){
+    fire.position.x += speed;
+    fire.update();
+}
+}
+
 };
 };
+
 mouseClicked = function(){
 if((mouseX >= width/2-120/2 && mouseX <= width/2-120/2+120 && height/2+57 && height/2+57+45) && t > 0.9 && scene === 0){
     scene += 1;
@@ -139,6 +256,9 @@ if(mouseX >= 480 && mouseX <= 480+108 && mouseY >= 10 && mouseY <= 10+20 && scen
     scene += 1;
 }
 };
+scene = 2;
+
+
 
 
     }};
