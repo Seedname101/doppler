@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html> 
+ <head>
+    <title>Template for Websites</title> 
+</head>
+ <body>
+    <p align="center"> 
+      <canvas id="mycanvas"></canvas> 
+    </p>
+ </body>
+
+ <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+ 
+ <script>
+    var sketchProc = function(processingInstance) {
+     with (processingInstance) {
+        size(600, 400); 
+        frameRate(60);
+    var scene = 0;
+var t = 0;
+var f = -353;
+angleMode = "radians";
+var startPoint = 0;
+var angleVelocity = 0.40;
+var amplitude = 30;
+var x1 = width-40;
+//Adapted code from Advanced JS: Nature Of Code
+draw = function() {
+    stroke(0,0,0);
+    if(scene === 0){
+        f += 2;
+        fill(255, 255, 255);
+        background(65,105,225);
+        textSize(40);
+        text("The Doppler Effect", f, height/2-16);
+        if(f >= width/2-170.2){
+            f += 0;
+            f = width/2-170.2;
+            textSize(20);
+            fill(255, 255, 0);
+            text("Presentation", 244, 215);
+            t += 0.015;
+        }
+        if(t >= 0.5){
+            fill(255,182,193);
+            textSize(15);
+            text("By Julian", 269, 237);
+        }
+        if(t >= 1){
+            fill(255, 255, 255);
+            rect(width/2-120/2, height/2+57, 120, 45);
+            fill(0, 0, 0);
+            textSize(30);
+            text("Start", width/2-70/2, 291);
+        }
+    }
+    if(scene === 1){
+        background(65,105,225);
+        fill(208, 208, 208);
+        rect(width-width, height/2+150, width, height-height/2+100);
+        stroke(0,0,0);
+        noStroke();
+        fill(255, 255, 255);
+        rect(25-20, 231+30, 10, 30);
+        triangle(54-20, 210+30, 54-20, 274+30, 26-20, 248+30);
+        rect(x1, height-200, 20, 150);
+        stroke(0,0,0);
+        startPoint += 0.1;
+  var angle = startPoint;
+  
+  for (var x = 0; x <= x1-32; x += x1/40) {
+    // Calculate the y location according to amplitude and sine of the angle.
+    var y = amplitude * sin(angle);
+    // Draw a circle at the x, y location
+    stroke(0, 0, 0);
+    fill(0, 0, 0);
+    ellipse(x+40, y+height/2+72, 9, 9);
+    // Increment the angle according to angular velocity
+    angle += angleVelocity;
+  }
+  if(x1 <= 60){
+      x1 = 60;
+  }
+  if(x1 >= 570){
+      x1 = 570;
+  }
+  var d = x1 - 40;
+  textSize(17);
+  fill(255, 255, 0);
+  text("Click on the 'wall' or use the left or right arrow keys to move it", 10, 28);
+  fill(255, 255, 255);
+  text("Notice how the speed of the speed/frequency increases the closer the 'wall' is \nto the speaker. The circles are also tighter together.\n\nStats:", 10, 50);
+  var y = amplitude * sin(angle);
+  text("Distance between the 'wall' and the speaker: " + floor(d) + " pixels.", 10, 128); 
+  text("Amplitude: " + amplitude, 10, 147);
+  
+    }
+mousePressed = function(){
+if(mouseX >= x1 && mouseX <= x1+20 && mouseY >= height-200 && mouseY <= height-200+150 && scene === 1){
+    x1 -= 50;
+}
+};
+keyPressed = function(){
+if(keyCode === LEFT){
+    x1 -= 5;
+}
+if(keyCode === RIGHT){
+    x1 += 5;
+}
+};
+};
+mouseClicked = function(){
+if((mouseX >= width/2-120/2 && mouseX <= width/2-120/2+120 && height/2+57 && height/2+57+45) && t > 0.9 && scene === 0){
+    scene += 1;
+}
+};
+
+    }};
+
+    var canvas = document.getElementById("mycanvas"); 
+
+    var processingInstance = new Processing(canvas, sketchProc); 
+ </script>
+
+</html>
