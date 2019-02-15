@@ -17,16 +17,17 @@
      with (processingInstance) {
         size(600, 400); 
         frameRate(60);
-    var scene = 0;
+   var scene = 0;
 var t = 0;
 var f = -353;
+var a = 30;
 angleMode = "radians";
 var startPoint = 0;
 var angleVelocity = 0.40;
-var amplitude = 30;
+var amplitude = a;
 var x1 = width-40;
+var color1 = color(0, 0, 0);
 //Adapted code from Advanced JS: Nature Of Code
-      //
 draw = function() {
     stroke(0,0,0);
     if(scene === 0){
@@ -74,8 +75,8 @@ draw = function() {
     // Calculate the y location according to amplitude and sine of the angle.
     var y = amplitude * sin(angle);
     // Draw a circle at the x, y location
-    stroke(0, 0, 0);
-    fill(0, 0, 0);
+    stroke(color1);
+    fill(color1);
     ellipse(x+40, y+height/2+72, 9, 9);
     // Increment the angle according to angular velocity
     angle += angleVelocity;
@@ -91,12 +92,31 @@ draw = function() {
   fill(255, 255, 0);
   text("Click on the 'wall' or use the left or right arrow keys to move it", 10, 28);
   fill(255, 255, 255);
-  text("Notice how the speed of the speed/frequency increases the closer the 'wall' is \nto the speaker. The circles are also tighter together.\n\nStats:", 10, 50);
+  text("Notice how the speed of the speed/frequency increases the closer the 'wall' is \nto the speaker. The circles are also tighter together. The wavelength is on a\nloose end (based off of the PHET simulation).\n\nStats:", 10, 50);
   var y = amplitude * sin(angle);
-  text("Distance between the 'wall' and the speaker: " + floor(d) + " pixels.", 10, 128); 
-  text("Amplitude: " + amplitude, 10, 147);
-  
+  text("Distance between the 'wall' and the speaker: " + floor(d) + " pixels.", 10, 147); 
+  text("Amplitude: " + amplitude, 10, 164);
+  fill(255, 255, 255);
+  rect(480, 10, 108, 20);
+  fill(0, 0, 0);
+  text("Next Example", 481, 26);
     }
+if(scene === 2){
+    textSize(17);
+    background(65,105,225);
+    fill(255, 255, 255);
+  rect(480, 10, 108, 20);
+  fill(0, 0, 0);
+  text("Next Example", 481, 26);
+  fill(208, 208, 208);
+rect(width-width, height/2+150, width, height-height/2+100);
+    textSize(30);
+    fill(255, 255, 255);
+    text('"Surround sound" Doppler effect coming this \nweekend...', 10, 125);
+}
+if(scene > 2){
+    scene = 1;
+}
 mousePressed = function(){
 if(mouseX >= x1 && mouseX <= x1+20 && mouseY >= height-200 && mouseY <= height-200+150 && scene === 1){
     x1 -= 50;
@@ -108,14 +128,18 @@ if(keyCode === LEFT){
 }
 if(keyCode === RIGHT){
     x1 += 5;
-}
+} 
 };
 };
 mouseClicked = function(){
 if((mouseX >= width/2-120/2 && mouseX <= width/2-120/2+120 && height/2+57 && height/2+57+45) && t > 0.9 && scene === 0){
     scene += 1;
 }
+if(mouseX >= 480 && mouseX <= 480+108 && mouseY >= 10 && mouseY <= 10+20 && scene > 0){
+    scene += 1;
+}
 };
+
 
     }};
 
