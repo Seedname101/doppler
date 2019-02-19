@@ -138,7 +138,6 @@ draw = function() {
         fill(255, 255, 255);
         rect(25-20, 231+30, 10, 30);
         triangle(54-20, 210+30, 54-20, 274+30, 26-20, 248+30);
-        rect(x1, height-200, 20, 150);
         stroke(0,0,0);
         startPoint += 0.1;
   var angle = startPoint;
@@ -164,7 +163,7 @@ draw = function() {
   fill(255, 255, 0);
   text("Click on the 'wall' or use the left or right arrow keys to move it", 10, 28);
   fill(255, 255, 255);
-  text("Notice how the speed of the speed/frequency increases the closer the 'wall' is \nto the speaker. The circles are also tighter together. The wavelength is on a\nloose end (based off of the PHET simulation).\n\nStats:", 10, 50);
+  text("Notice how the speed of the speed/frequency increases the closer the 'wall' is \nto the speaker. The circles are also tighter together. The wavelength is on a\nloose end (based off of the PHET simulation).\nNOTE: The wave doesn't go past the wall in reality. I did that so you can see it better.\nStats:", 10, 50);
   var y = amplitude * sin(angle);
   text("Distance between the 'wall' and the speaker: " + floor(d) + " pixels.", 10, 147); 
   text("Amplitude: " + amplitude, 10, 164);
@@ -172,6 +171,7 @@ draw = function() {
   rect(480, 10, 108, 20);
   fill(0, 0, 0);
   text("Next Example", 481, 26);
+   rect(x1, height-200, 20, 150);
     }
 if(scene === 2){
     light += 0.030;
