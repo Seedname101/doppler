@@ -150,7 +150,7 @@ draw = function() {
         startPoint += 0.1;
   var angle = startPoint;
   
-  for (var x = 0; x <= x1-32; x += x1/40) {
+  for (var x = 0; x <= width; x += x1/40) {
     // Calculate the y location according to amplitude and sine of the angle.
     var y = amplitude * sin(angle);
     // Draw a circle at the x, y location
