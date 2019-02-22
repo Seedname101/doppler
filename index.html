@@ -203,54 +203,82 @@ rect(width-width, height/2+150, width, height-height/2+100);
  ellipse(bicp3, height-33, bicl3, 400);
  ellipse(bicp4, height-33, bicl4, 300);
  fill(0, 0, 0);
-if(fire.position.x >= width/2+30){
+if(fire.position.x >= width/2+40 && speed === 3){
     bicp4 = fire.position.x-40;
 }
-if(fire.position.x >= width/2+60){
+if(fire.position.x >= width/2+70 && speed === 3){
     bicp3 = fire.position.x-80;
 }
-if(fire.position.x >= width/2+90){
+if(fire.position.x >= width/2+100 && speed === 3){
     bicp2 = fire.position.x-120;
 }
-if(fire.position.x >= width/2+120){
-    bicp = fire.position.x-160;
+if(fire.position.x >= width/2+130 && speed === 3){
+    bicp = fire.position.x-150;
 }
-if(fire.position.x >= width/2+150){
+if(fire.position.x >= width/2+160 && speed === 3){
+    speed = 0;
+}
+if(fire.position.x <= width/2-20){
+    bicp4 = fire.position.x+5;
+}
+if(fire.position.x <= width/2-40){
+    bicp3 = fire.position.x+30;
+}
+if(fire.position.x <= width/2-60){
+    bicp2 = fire.position.x+70;
+}
+if(fire.position.x <= width/2-80){
+    bicp = fire.position.x+110;
+}
+if(fire.position.x <= width/2-160){
     speed = 0;
 }
  textSize(17);
   fill(255, 255, 0);
  text("Use the right arrow key to move the fire truck forward.", 10, 28);
  fill(255, 255, 255);
-  text("Notice how the circles are smaller when you accelerate forward and behind it\nare bigger circles? Well, the smaller circles in the front are actualler higher\nfrequencies, or a louder sound. The waves behind it are lower frequencies \nproducing a lower sound.", 10, 50);
+  text("Notice how the circles are smaller when you accelerate forward and behind it\nare bigger circles? Well, the smaller circles in the front are actualler higher\nfrequencies, or a louder sound. The waves behind it are lower frequencies \nproducing a lower sound. When moving backward, you have to go to the \ncenter of the screen for the waves to reset to stationary.", 10, 50);
 }
 if(scene > 2){
     scene = 1;
+}
+if(speed === 0){
+
 }
 mousePressed = function(){
 if(mouseX >= x1 && mouseX <= x1+20 && mouseY >= height-200 && mouseY <= height-200+150 && scene === 1){
     x1 -= 50;
 }
 };
-    if(keyPressed === false){
+    if(keyIsPressed === false){
         speed = 0;
-    } if (keyPressed === true){
+    } if (keyIsPressed === true){
         speed = 3;
     }
 keyPressed = function(){
+if(keyCode === 65 && scene === 1){
+    x1 -= 5;
+}
+if(keyCode === 68 && scene === 1){
+    x1 += 5;
+} 
 if(keyCode === LEFT && scene === 1){
     x1 -= 5;
 }
 if(keyCode === RIGHT && scene === 1){
     x1 += 5;
 } 
-if(keyCode === RIGHT && scene === 2){
+if(keyCode === 68 || keyCode === RIGHT && scene === 2){
     if(fire.position.x <= width-150){
     fire.position.x += speed;
     fire.update();
 }
 }
+if(keyCode === 65 || keyCode === LEFT && scene === 2){
+    fire.position.x -= speed;
+    fire.update();
 
+}
 };
 };
 
